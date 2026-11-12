@@ -1,0 +1,34 @@
+<div class="scroll-panel">
+  <table class="table table-sm mb-0">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in stats.recent_logs %}
+      <tr>
+        <td class="small muted">{{ log.created_at }}</td>
+        <td>
+          {% if log.status == 'Sent' %}
+            <span class="badge text-bg-success badge-status">Sent</span>
+          {% elif log.status == 'Failed' %}
+            <span class="badge text-bg-danger badge-status">Failed</span>
+          {% else %}
+            <span class="badge text-bg-warning text-dark badge-status">{{ log.status }}</span>
+          {% endif %}
+        </td>
+        <td>{{ log.name or '—' }}</td>
+        <td class="small">{{ log.email }}</td>
+        <td class="small muted">{{ log.message }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="text-center muted py-4">No sends yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

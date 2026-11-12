@@ -1,0 +1,38 @@
+<div class="scroll-panel">
+  <table class="table table-sm mb-0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Status</th>
+        <th>Sent</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in stats.contacts %}
+      <tr>
+        <td>{{ c.name or '—' }}</td>
+        <td class="small">{{ c.email }}</td>
+        <td>{{ c.age or '—' }}</td>
+        <td>
+          {% if c.status == 'Sent' %}
+            <span class="badge text-bg-success badge-status">Sent</span>
+          {% elif c.status == 'Failed' %}
+            <span class="badge text-bg-danger badge-status">Failed</span>
+          {% elif c.status == 'Retry' %}
+            <span class="badge text-bg-warning text-dark badge-status">Retry</span>
+          {% elif c.status == 'Sending' %}
+            <span class="badge text-bg-info text-dark badge-status">Sending</span>
+          {% else %}
+            <span class="badge text-bg-secondary badge-status">{{ c.status }}</span>
+          {% endif %}
+        </td>
+        <td class="small muted">{{ c.sent_at or '—' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="text-center muted py-4">No contacts yet. Import the CSV first.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
